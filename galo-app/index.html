@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+  <title>Meus Jogos do Galo</title>
+  <meta name="description" content="Todos os jogos do Galo que eu fui">
+  <meta name="theme-color" content="#000000">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Meu Galo">
+  <link rel="apple-touch-icon" href="icons/icon-180.png">
+  <link rel="icon" type="image/png" href="icons/icon-192.png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <h1 id="titulo">Meu Galo</h1>
+    <span id="syncStatus" class="sync"></span>
+  </header>
+
+  <main id="conteudo"></main>
+
+  <nav class="tabbar">
+    <button data-tab="resumo" class="ativo"><span class="ico">🏠</span><span>Resumo</span></button>
+    <button data-tab="jogos"><span class="ico">📋</span><span>Jogos</span></button>
+    <button data-tab="adicionar" class="add"><span class="ico">＋</span><span>Novo</span></button>
+    <button data-tab="stats"><span class="ico">📊</span><span>Números</span></button>
+    <button data-tab="ajustes"><span class="ico">⚙️</span><span>Ajustes</span></button>
+  </nav>
+
+  <div id="sheet" class="sheet oculto">
+    <div class="sheet-fundo" data-fechar></div>
+    <div class="sheet-corpo" id="sheetCorpo"></div>
+  </div>
+  <div id="toast" class="toast"></div>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
