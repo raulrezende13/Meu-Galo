@@ -106,9 +106,9 @@ function statusSync(txt) { $('#syncStatus').textContent = txt; }
 
 async function sincronizar(silencioso) {
   const c = cfg();
-  if (!c.apiUrl) { statusSync('modo local'); return; }
+  if (!c.apiUrl) { statusSync('Modo local'); return; }
   if (estado.sincronizando) return;
-  estado.sincronizando = true; statusSync('sincronizando…');
+  estado.sincronizando = true; statusSync('Sincronizando…');
   try {
     await enviarPendentes();
     const d = await api('listar');
@@ -117,7 +117,7 @@ async function sincronizar(silencioso) {
     statusSync('✓ ' + new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }));
     if (!silencioso) toast('Planilha sincronizada');
   } catch (e) {
-    statusSync('sem conexão');
+    statusSync('Sem conexão');
     if (!silencioso) toast('Não deu para sincronizar: ' + e.message);
   } finally { estado.sincronizando = false; }
 }
@@ -187,8 +187,8 @@ function sequencias(lista) {
 // ---------- Componentes ----------
 function cardJogo(j) {
   const titulo = ehTitulo(j) ? '<span class="tag ouro">🏆</span>' : '';
-  const pend = j.pendente ? '<span class="tag pend">a enviar</span>' : '';
-  const base = j.categoria === 'Base' ? '<span class="tag">base</span>' : '';
+  const pend = j.pendente ? '<span class="tag pend">A enviar</span>' : '';
+  const base = j.categoria === 'Base' ? '<span class="tag">Base</span>' : '';
   return `<div class="jogo" data-id="${esc(j.id)}">
     <div class="res ${j.res}">${j.res}</div>
     <div class="meio">
@@ -227,31 +227,31 @@ function telaResumo() {
   return `${segCategoria()}
   <div class="card hero">
     <div class="num">${r.j}</div>
-    <div class="rot">jogos do Galo ao vivo · ${plural(anos, 'temporada')}</div>
+    <div class="rot">Jogos do Galo ao vivo · ${plural(anos, 'temporada')}</div>
     <div class="ved">
-      <div><b class="cv">${r.V}</b><span>vitórias</span></div>
-      <div><b class="ce">${r.E}</b><span>empates</span></div>
-      <div><b class="cd">${r.D}</b><span>derrotas</span></div>
+      <div><b class="cv">${r.V}</b><span>Vitórias</span></div>
+      <div><b class="ce">${r.E}</b><span>Empates</span></div>
+      <div><b class="cd">${r.D}</b><span>Derrotas</span></div>
     </div>
     ${barraVED(r)}
   </div>
   <div class="grade">
-    <div class="mini"><b>${r.aprov.toFixed(1)}%</b><span>aproveitamento</span></div>
-    <div class="mini"><b>${r.gp} <small style="display:inline">pró</small> · ${r.gc}</b><span>gols · saldo ${r.gp - r.gc >= 0 ? '+' : ''}${r.gp - r.gc}</span></div>
-    <div class="mini"><b>${fmtNum(r.mediaPub)}</b><span>média de público</span></div>
-    <div class="mini"><b>${titulos.length}</b><span>${titulos.length === 1 ? 'título' : 'títulos'} na arquibancada 🏆</span></div>
-    <div class="mini"><b>${seq.maxInv}</b><span>maior sequência invicta</span></div>
-    <div class="mini"><b>${estadios}</b><span>${estadios === 1 ? 'estádio' : 'estádios'}</span></div>
+    <div class="mini"><b>${r.aprov.toFixed(1).replace('.', ',')}%</b><span>Aproveitamento</span></div>
+    <div class="mini"><b>${r.gp} · ${r.gc}</b><span>Gols pró · contra (saldo ${r.gp - r.gc >= 0 ? '+' : ''}${r.gp - r.gc})</span></div>
+    <div class="mini"><b>${fmtNum(r.mediaPub)}</b><span>Média de público</span></div>
+    <div class="mini"><b>${titulos.length}</b><span>${titulos.length === 1 ? 'Título' : 'Títulos'} na arquibancada 🏆</span></div>
+    <div class="mini"><b>${seq.maxInv}</b><span>Maior sequência invicta</span></div>
+    <div class="mini"><b>${estadios}</b><span>${estadios === 1 ? 'Estádio' : 'Estádios'}</span></div>
   </div>
   ${nesteDia.length ? `<h2>📅 Neste dia</h2><div class="neste-dia">${nesteDia.map(cardJogo).join('')}</div>` : ''}
   <h2>Último jogo</h2>
   ${cardJogo(lista[0])}
   <h2>Recordes</h2>
   <div class="grade">
-    ${art ? `<div class="mini"><b>${esc(art.nome)}</b><span>artilheiro · ${plural(art.gols, 'gol')}</span></div>` : ''}
-    ${maiorVit ? `<div class="mini clic" data-id="${esc(maiorVit.id)}"><b>${maiorVit.gp} × ${maiorVit.gc}</b><span>maior vitória</span><small>${esc(maiorVit.adversario)} · ${maiorVit.ano}</small></div>` : ''}
-    ${maiorPub ? `<div class="mini clic" data-id="${esc(maiorPub.id)}"><b>${fmtNum(maiorPub.publico)}</b><span>maior público</span><small>${esc(maiorPub.adversario)} · ${maiorPub.ano}</small></div>` : ''}
-    <div class="mini"><b>${seq.maxVit}</b><span>vitórias seguidas (recorde)</span></div>
+    ${art ? `<div class="mini"><b>${esc(art.nome)}</b><span>Artilheiro · ${plural(art.gols, 'gol')}</span></div>` : ''}
+    ${maiorVit ? `<div class="mini clic" data-id="${esc(maiorVit.id)}"><b>${maiorVit.gp} × ${maiorVit.gc}</b><span>Maior vitória</span><small>${esc(maiorVit.adversario)} · ${maiorVit.ano}</small></div>` : ''}
+    ${maiorPub ? `<div class="mini clic" data-id="${esc(maiorPub.id)}"><b>${fmtNum(maiorPub.publico)}</b><span>Maior público</span><small>${esc(maiorPub.adversario)} · ${maiorPub.ano}</small></div>` : ''}
+    <div class="mini"><b>${seq.maxVit}</b><span>Vitórias seguidas (recorde)</span></div>
   </div>
   ${titulos.length ? `<h2>🏆 Títulos que eu vi</h2>${titulos.map(cardJogo).join('')}` : ''}`;
 }

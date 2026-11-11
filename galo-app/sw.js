@@ -1,5 +1,5 @@
 // Service worker: deixa o app funcionando offline (ex.: sem sinal no estádio)
-const VERSAO = 'galo-v1';
+const VERSAO = 'galo-v2';
 const ARQUIVOS = [
   './', './index.html', './styles.css', './app.js', './data.js', './manifest.webmanifest',
   './icons/icon-180.png', './icons/icon-192.png', './icons/icon-512.png'
@@ -23,7 +23,7 @@ self.addEventListener('fetch', e => {
   if (e.request.method !== 'GET' || url.origin !== self.location.origin) return;
   // Rede primeiro (pega atualizações), cache como reserva
   e.respondWith(
-    fetch(e.request)
+    fetch(e.request, { cache: 'no-cache' })
       .then(r => { const copia = r.clone(); caches.open(VERSAO).then(c => c.put(e.request, copia)); return r; })
       .catch(() => caches.match(e.request, { ignoreSearch: true }))
   );
